@@ -134,25 +134,14 @@ def hub_candidates():
         log(f"  WMO Alert Hub directory not readable: {type(ex).__name__}")
         return out
 
-    def feeds_in(o):
-        found = []
-        if isinstance(o, dict):
-            for k, v in o.items():
-                if k == "capAlertFeed" and isinstance(v, str) and v.startswith("http"):
-                    found.append(v)
-                else:
-                    found += feeds_in(v)
-        elif isinstance(o, list):
-            for v in o:
-                found += feeds_in(v)
-        return found
-
     def walk(o):
         if isinstance(o, dict):
-            blob = json.dumps(o, ensure_ascii=False)
-            if len(blob) < 4000 and "sri lanka" in blob.lower() and feeds_in(o):
-                log("  hub entry: " + blob[:700])
-                out.extend(feeds_in(o))
+            if isinstance(o.get("capAlertFeed"), str):
+                blob = json.dumps(o, ensure_ascii=False).lower()
+                if o.get("authorityCountry") == "lk" or "sri lanka" in blob:
+                    log("  hub entry: " + blob[:400])
+                    if o["capAlertFeed"].startswith("http"):
+                        out.append(o["capAlertFeed"])
                 return
             for v in o.values():
                 walk(v)
