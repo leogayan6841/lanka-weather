@@ -32,4 +32,4 @@
   x https://www.fisheries.gov.lk/?feed=rss2  (not a feed)
   x https://www.fisheries.gov.lk/index.php?format=feed&type=rss  (HTTPError)
   x https://www.fisheries.gov.lk/web/index.php?format=feed&type=rss  (HTTPError)
-No change.
+Wrote auto-notices.json: 0 notice(s).
