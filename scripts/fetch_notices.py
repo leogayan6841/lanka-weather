@@ -311,15 +311,31 @@ def run_source(src):
 
 
 def probe_meteo_alert_server():
-    """Diagnostic only: list links on the Met Department alert server, to look for a daily forecast source."""
+    """Diagnostic only: find out what the Met Department alert server offers (bulletins, API)."""
+    base = "https://was.meteo.gov.lk"
     try:
-        html = fetch("https://was.meteo.gov.lk/", timeout=15).decode("utf-8", "ignore")
-        links = sorted(set(urllib.parse.urljoin("https://was.meteo.gov.lk/", unescape(m)) for m in re.findall(r'href=["\']([^"\'#]+)', html, re.I)))
-        log(f"[probe] was.meteo.gov.lk: {len(html)} bytes, {len(links)} links")
-        for l in links[:60]:
-            log("  link " + l)
+        html = fetch(base + "/", timeout=15).decode("utf-8", "ignore")
     except Exception as ex:
-        log(f"[probe] was.meteo.gov.lk not readable: {type(ex).__name__}")
+        log(f"[probe] {base} not readable: {type(ex).__name__}")
+        return
+    log(f"[probe] {base}: {len(html)} bytes")
+    for path in ["/api-docs", "/bulletin", "/api-docs.json", "/api-docs/json", "/openapi.json", "/swagger.json", "/api/docs"]:
+        try:
+            body = fetch(base + path, timeout=15).decode("utf-8", "ignore")
+            snippet = re.sub(r"\s+", " ", re.sub(r"<script.*?</script>|<style.*?</style>|<[^>]+>", " ", body, flags=re.S))[:600]
+            log(f"[probe] {path}: {len(body)} bytes; text: {snippet}")
+        except Exception as ex:
+            log(f"[probe] {path}: {type(ex).__name__}")
+    found = set()
+    for src in sorted(set(re.findall(r'src=["\']([^"\']+\.js)', html)))[:12]:
+        try:
+            js = fetch(urllib.parse.urljoin(base + "/", src), timeout=20).decode("utf-8", "ignore")
+        except Exception:
+            continue
+        for m in re.findall(r'["\']((?:https?://[^"\' ]*)?/(?:api|cap|bulletin|forecast|advisor)[^"\' ]*)["\']', js):
+            found.add(m[:160])
+    for m in sorted(found)[:60]:
+        log("  endpoint-like: " + m)
 
 
 def main():
