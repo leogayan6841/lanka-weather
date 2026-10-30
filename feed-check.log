@@ -1,6 +1,21 @@
-  hub entry: {"source": {"sourceId": "lk-meteo-en", "byLanguage": [{"code": "en", "name": "Sri Lanka: Department of Meteorology", "logo": "https://alert-hub.s3.amazonaws.com/images/lk-meteo-en.png"}], "guid": "urn:oid:2.49.0.0.144.0", "registerUrl": "https://alertingauthority.wmo.int/authorities.php?recId=154", "authorName": "Meril Mendis", "authorEmail": "merilmdi@gmail.com", "sourceIsOfficial": true, "capAlertFeed": "https://was.meteo.gov.lk/cap/en/rss.xml", "capAlertFeedStatus": "operating", "authorityCountry": "lk", "authorityAbbrev": "meteo"}}
-  hub entry: {"source": {"sourceId": "lk-meteo-si", "byLanguage": [{"code": "si", "name": "Sri Lanka: කාලගුණ විද්‍යා දෙපාර්තමේන්තුව", "logo": "https://alert-hub.s3.amazonaws.com/images/lk-meteo-si.png"}], "guid": "urn:oid:2.49.0.0.144.0", "registerUrl": "https://alertingauthority.wmo.int/authorities.php?recId=154", "authorName": "Meril Mendis", "authorEmail": "merilmdi@gmail.com", "sourceIsOfficial": true, "capAlertFeed": "https://was.meteo.gov.lk/cap/si/rss.xml", "capAlertFeedStatus": "operating", "authorityCountry": "lk", "authorityAbbrev": "meteo"}}
-  hub entry: {"source": {"sourceId": "lk-meteo-ta", "byLanguage": [{"code": "ta", "name": "Sri Lanka: வானிலை ஆய்வு துறை", "logo": "https://alert-hub.s3.amazonaws.com/images/lk-meteo-ta.png"}], "guid": "urn:oid:2.49.0.0.144.0", "registerUrl": "https://alertingauthority.wmo.int/authorities.php?recId=154", "authorName": "Meril Mendis", "authorEmail": "merilmdi@gmail.com", "sourceIsOfficial": true, "capAlertFeed": "https://was.meteo.gov.lk/cap/ta/rss.xml", "capAlertFeedStatus": "operating", "authorityCountry": "lk", "authorityAbbrev": "meteo"}}
+[probe] was.meteo.gov.lk: 42016 bytes, 14 links
+  link https://forms.gle/heS2CBBBZ98uA2tC8
+  link https://was.meteo.gov.lk/_next/static/chunks/1b24640ace00e2e9.js
+  link https://was.meteo.gov.lk/_next/static/chunks/5fe1904d052479c8.css
+  link https://was.meteo.gov.lk/_next/static/chunks/fa1e524f220738b2.css
+  link https://was.meteo.gov.lk/_next/static/media/03bda585a99c6450-s.p.ad37b9d9.woff2
+  link https://was.meteo.gov.lk/_next/static/media/0c89a48fa5027cee-s.p.4564287c.woff2
+  link https://was.meteo.gov.lk/_next/static/media/70bc3e132a0a741e-s.p.15008bfb.woff2
+  link https://was.meteo.gov.lk/adpc.png
+  link https://was.meteo.gov.lk/api-docs
+  link https://was.meteo.gov.lk/bulletin
+  link https://was.meteo.gov.lk/cresmpa.png
+  link https://was.meteo.gov.lk/emblem.png
+  link https://was.meteo.gov.lk/favicon.ico?favicon.239a78d7.ico
+  link https://was.meteo.gov.lk/metlogo.png
+  hub entry: {"sourceid": "lk-meteo-en", "bylanguage": [{"code": "en", "name": "sri lanka: department of meteorology", "logo": "https://alert-hub.s3.amazonaws.com/images/lk-meteo-en.png"}], "guid": "urn:oid:2.49.0.0.144.0", "registerurl": "https://alertingauthority.wmo.int/authorities.php?recid=154", "authorname": "meril mendis", "authoremail": "merilmdi@gmail.com", "sourceisofficial": true, "capalertfeed": "h
+  hub entry: {"sourceid": "lk-meteo-si", "bylanguage": [{"code": "si", "name": "sri lanka: කාලගුණ විද්‍යා දෙපාර්තමේන්තුව", "logo": "https://alert-hub.s3.amazonaws.com/images/lk-meteo-si.png"}], "guid": "urn:oid:2.49.0.0.144.0", "registerurl": "https://alertingauthority.wmo.int/authorities.php?recid=154", "authorname": "meril mendis", "authoremail": "merilmdi@gmail.com", "sourceisofficial": true, "capalertfeed"
+  hub entry: {"sourceid": "lk-meteo-ta", "bylanguage": [{"code": "ta", "name": "sri lanka: வானிலை ஆய்வு துறை", "logo": "https://alert-hub.s3.amazonaws.com/images/lk-meteo-ta.png"}], "guid": "urn:oid:2.49.0.0.144.0", "registerurl": "https://alertingauthority.wmo.int/authorities.php?recid=154", "authorname": "meril mendis", "authoremail": "merilmdi@gmail.com", "sourceisofficial": true, "capalertfeed": "https://w
   could not read https://meteo.gov.lk: <urlopen error timed out>
 [Department of Meteorology] trying 16 candidate feed address(es)
   ok https://was.meteo.gov.lk/cap/en/rss.xml  (0 items)
@@ -32,4 +47,4 @@
   x https://www.fisheries.gov.lk/?feed=rss2  (not a feed)
   x https://www.fisheries.gov.lk/index.php?format=feed&type=rss  (HTTPError)
   x https://www.fisheries.gov.lk/web/index.php?format=feed&type=rss  (HTTPError)
-Wrote auto-notices.json: 0 notice(s).
+No change.
