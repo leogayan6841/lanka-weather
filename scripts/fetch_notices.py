@@ -122,6 +122,7 @@ def candidate_feeds(home):
 
 
 HUB_DIRECTORY = "https://alert-hub-sources.s3.amazonaws.com/json"
+KNOWN_METEO_FEED = "https://was.meteo.gov.lk/cap/en/rss.xml"  # from the WMO Alert Hub directory
 
 
 def hub_candidates():
@@ -133,14 +134,25 @@ def hub_candidates():
         log(f"  WMO Alert Hub directory not readable: {type(ex).__name__}")
         return out
 
+    def feeds_in(o):
+        found = []
+        if isinstance(o, dict):
+            for k, v in o.items():
+                if k == "capAlertFeed" and isinstance(v, str) and v.startswith("http"):
+                    found.append(v)
+                else:
+                    found += feeds_in(v)
+        elif isinstance(o, list):
+            for v in o:
+                found += feeds_in(v)
+        return found
+
     def walk(o):
         if isinstance(o, dict):
             blob = json.dumps(o, ensure_ascii=False)
-            if len(blob) < 4000 and "sri lanka" in blob.lower():
-                log("  hub entry: " + blob[:1500])
-                for v in o.values():
-                    if isinstance(v, str) and v.startswith("http"):
-                        out.append(v)
+            if len(blob) < 4000 and "sri lanka" in blob.lower() and feeds_in(o):
+                log("  hub entry: " + blob[:700])
+                out.extend(feeds_in(o))
                 return
             for v in o.values():
                 walk(v)
@@ -149,6 +161,7 @@ def hub_candidates():
                 walk(v)
 
     walk(data)
+    out.sort(key=lambda u: 0 if "/en/" in u else 1)
     if not out:
         log("  no Sri Lanka entry found in the hub directory")
     return out
@@ -275,7 +288,7 @@ def run_source(src):
     if pinned:
         cands = [pinned]
     else:
-        cands = (hub_candidates() if src["name"] == "Department of Meteorology" else []) + candidate_feeds(src["home"])
+        cands = ((hub_candidates() or [KNOWN_METEO_FEED]) if src["name"] == "Department of Meteorology" else []) + candidate_feeds(src["home"])
         cands = list(dict.fromkeys(cands))
     log(f"[{src['name']}] trying {len(cands)} candidate feed address(es)")
     notices = []
