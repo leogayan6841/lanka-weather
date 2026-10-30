@@ -281,7 +281,19 @@ def main():
         statuses.append(st)
         allnotices += n
     if not any(s["ok"] for s in statuses):
-        log("No source could be read. Keeping the existing file unchanged.")
+        log("No source could be read. Keeping the last good notices.")
+        try:
+            prev = json.load(open(OUT, encoding="utf-8"))
+        except Exception:
+            prev = {"notices": []}
+        fresh = parse_date(prev.get("updated", ""))
+        same_status = [(x["name"], x["ok"]) for x in prev.get("sources", [])] == [(x["name"], x["ok"]) for x in statuses]
+        if same_status and fresh and (NOW - fresh) < dt.timedelta(hours=6):
+            return 0
+        prev.update(updated=NOW.isoformat(timespec="minutes"), sources=statuses)
+        with open(OUT, "w", encoding="utf-8") as f:
+            json.dump(prev, f, ensure_ascii=False, indent=2)
+            f.write("\n")
         return 0
     order = {"bad": 0, "warn": 1, "info": 2}
     allnotices.sort(key=lambda n: (order[n["severity"]], n["date"]), reverse=False)

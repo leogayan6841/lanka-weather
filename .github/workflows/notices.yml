@@ -26,12 +26,12 @@ jobs:
           METEO_FEED_URL: ${{ vars.METEO_FEED_URL }}
           NAVY_FEED_URL: ${{ vars.NAVY_FEED_URL }}
           FISHERIES_FEED_URL: ${{ vars.FISHERIES_FEED_URL }}
-        run: python scripts/fetch_notices.py
+        run: python scripts/fetch_notices.py 2>&1 | tee feed-check.log
       - name: Commit if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add auto-notices.json
+          git add auto-notices.json feed-check.log
           if git diff --cached --quiet; then echo "nothing to commit"; else
             git commit -m "Update official notices"
             git pull --rebase origin main
