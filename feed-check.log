@@ -1,11 +1,3 @@
-[probe] https://was.meteo.gov.lk: 42016 bytes
-[probe] /api-docs: 43922 bytes; text:  Weather Advisory System පුවරුවට ආපසු භාෂාව වෙනස් කරන්න සිංහල தமிழ் English කාලගුණ විද්‍යා දෙපාර්තමේන්තුව · ශ්‍රී ලංකාව පොදු අනතුරු ඇඟවීම් API ශ්‍රී ලංකාවේ ක්‍රියාත්මක කාලගුණ අනතුරු ඇඟවීම් සිංහල, දෙමළ සහ ඉංග්‍රීසි භාෂාවෙන් ලබා දෙන කියවීම-පමණක් feed එකකි. සජීවී ඒකාබද්ධ කිරීම් සඳහා වෙනස්කම් සොයන endpoint එකක් ද ඇත. පදනම් URL : was.meteo.gov.lk/api සත්‍යාපනය: X-API-Key header ඉල්ලීම් 120 / තත්පර 60 සියලුම වේලාවන්: ශ්‍රී ලංකා වේලාව (UTC+05:30) 01 සත්‍යාපනය සෑම ඉල්ලීමකම HTTP header එකක් ලෙස ඔබේ key එක එවන්න. වලංගු key එකක් නොමැති ඉල්ලීම් 401 Unauthorized ලෙස ප්‍රතිචාර දක්වයි. header Copy X-API-Key:
-[probe] /bulletin: 12646 bytes; text:  Weather Advisory System නිවේදන පත්‍රිකාව නවතම නිවේදන පූරණය වෙමින් පවතී... භාෂාව වෙනස් කරන්න සිංහල தமிழ் English නවතම නිවේදන පූරණය වෙමින් පවතී... © 2026 ශ්‍රී ලංකා කාලගුණ විද්‍යා දෙපාර්තමේන්තුව 
-[probe] /api-docs.json: HTTPError
-[probe] /api-docs/json: HTTPError
-[probe] /openapi.json: HTTPError
-[probe] /swagger.json: HTTPError
-[probe] /api/docs: HTTPError
   hub entry: {"sourceid": "lk-meteo-en", "bylanguage": [{"code": "en", "name": "sri lanka: department of meteorology", "logo": "https://alert-hub.s3.amazonaws.com/images/lk-meteo-en.png"}], "guid": "urn:oid:2.49.0.0.144.0", "registerurl": "https://alertingauthority.wmo.int/authorities.php?recid=154", "authorname": "meril mendis", "authoremail": "merilmdi@gmail.com", "sourceisofficial": true, "capalertfeed": "h
   hub entry: {"sourceid": "lk-meteo-si", "bylanguage": [{"code": "si", "name": "sri lanka: කාලගුණ විද්‍යා දෙපාර්තමේන්තුව", "logo": "https://alert-hub.s3.amazonaws.com/images/lk-meteo-si.png"}], "guid": "urn:oid:2.49.0.0.144.0", "registerurl": "https://alertingauthority.wmo.int/authorities.php?recid=154", "authorname": "meril mendis", "authoremail": "merilmdi@gmail.com", "sourceisofficial": true, "capalertfeed"
   hub entry: {"sourceid": "lk-meteo-ta", "bylanguage": [{"code": "ta", "name": "sri lanka: வானிலை ஆய்வு துறை", "logo": "https://alert-hub.s3.amazonaws.com/images/lk-meteo-ta.png"}], "guid": "urn:oid:2.49.0.0.144.0", "registerurl": "https://alertingauthority.wmo.int/authorities.php?recid=154", "authorname": "meril mendis", "authoremail": "merilmdi@gmail.com", "sourceisofficial": true, "capalertfeed": "https://w
