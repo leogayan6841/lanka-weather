@@ -1,0 +1,38 @@
+name: Update official notices
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+  push:
+    paths:
+      - scripts/fetch_notices.py
+      - .github/workflows/notices.yml
+concurrency:
+  group: notices
+  cancel-in-progress: false
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Fetch notices
+        env:
+          METEO_FEED_URL: ${{ vars.METEO_FEED_URL }}
+          NAVY_FEED_URL: ${{ vars.NAVY_FEED_URL }}
+          FISHERIES_FEED_URL: ${{ vars.FISHERIES_FEED_URL }}
+        run: python scripts/fetch_notices.py
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add auto-notices.json
+          if git diff --cached --quiet; then echo "nothing to commit"; else
+            git commit -m "Update official notices"
+            git pull --rebase origin main
+            git push
+          fi

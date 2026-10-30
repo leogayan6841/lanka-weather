@@ -344,7 +344,7 @@ footer p{margin:0;max-width:70ch}
 
   <footer>
     <p>Forecasts come from Open-Meteo (CC BY 4.0), a model-based service. They are not official warnings. For cyclone, flood and sea warnings follow the <a href="https://meteo.gov.lk" target="_blank" rel="noopener">Department of Meteorology</a>, and for landslides the <a href="https://www.nbro.gov.lk" target="_blank" rel="noopener">NBRO</a>.</p>
-    <p><a href="https://open-meteo.com" target="_blank" rel="noopener">open-meteo.com</a></p>
+    <p><span id="feedStatus"></span><br><a href="https://open-meteo.com" target="_blank" rel="noopener">open-meteo.com</a></p>
   </footer>
 </main>
 <div class="toast" id="toast" role="status"></div>
@@ -805,9 +805,17 @@ addEventListener('hashchange',()=>{const id=location.hash.slice(1);if(PL[id]&&id
 /* ---------- official notices (notices.json, edited by hand or with add-notice.html) ---------- */
 const esc=x=>String(x==null?'':x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 async function loadNotices(){
-  try{const r=await fetch('notices.json?'+Math.floor(Date.now()/300000),{cache:'no-store'});if(!r.ok)throw 0;const j=await r.json();S.notices=Array.isArray(j.notices)?j.notices:[]}
-  catch(e){S.notices=[]}
-  renderNotices();
+  const bust='?'+Math.floor(Date.now()/300000),get=async u=>{try{const r=await fetch(u+bust,{cache:'no-store'});if(!r.ok)throw 0;return await r.json()}catch(e){return null}};
+  const [man,auto]=await Promise.all([get('notices.json'),get('auto-notices.json')]);
+  const seen=new Set();S.notices=[...(man&&man.notices||[]),...(auto&&auto.notices||[])].filter(n=>n&&!seen.has(n.id||n.title)&&seen.add(n.id||n.title));
+  S.feed=auto&&auto.updated?auto:null;
+  renderNotices();renderFeedStatus();
+}
+function renderFeedStatus(){
+  const el=$('#feedStatus');if(!el)return;const f=S.feed;
+  if(!f){el.textContent='';return}
+  const ok=(f.sources||[]).filter(x=>x.ok).map(x=>x.name),d=new Date(f.updated);
+  el.textContent=isNaN(d)?'':`Official notices last checked ${d.toLocaleString(LOC[S.lang],{day:'numeric',month:'short',hour:'numeric',minute:'2-digit',timeZone:'Asia/Colombo'})}`+(ok.length?`, read from ${ok.join(', ')}.`:'. No source could be read.')
 }
 function renderNotices(){
   const box=$('#notices'),p=S.place,today=localNow().toISOString().slice(0,10),prov=p.prov.toLowerCase();
