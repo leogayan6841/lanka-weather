@@ -185,6 +185,11 @@ th button[aria-pressed="true"]{color:var(--accent)}
 tbody tr{cursor:pointer}
 tbody tr:hover,tbody tr[aria-current="true"]{background:var(--surface2)}
 td svg{width:26px;height:26px;vertical-align:middle;margin-right:8px}
+.links{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.links a{display:flex;flex-direction:column;gap:2px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--surface2);text-decoration:none;color:var(--ink)}
+.links a:hover{border-color:var(--sapphire)}
+.links a span{color:var(--muted);font-size:14px}
+.links a b::after{content:" ↗";color:var(--sapphire)}
 .season{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:20px;align-items:stretch}
 .months{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-top:12px}
 .months span{font-size:11px;text-align:center;padding:6px 0;border-radius:8px;background:var(--surface2);color:var(--muted);font-weight:600}
@@ -394,13 +399,13 @@ en:{retry:'Try live data',search:'Search district or town',slTime:'Sri Lanka tim
  sea_calm:'Calm',sea_slight:'Slight',sea_mod:'Moderate',sea_rough:'Rough',sea_vrough:'Very rough',press_low:'Low',press_norm:'Normal',press_high:'High',
  s_ne:'Northeast monsoon',s_im1:'First inter-monsoon',s_sw:'Southwest monsoon',s_im2:'Second inter-monsoon',
  noAlerts:'No weather advisories for this location',noAlertsSub:'Nothing in the forecast crosses an advisory threshold.',alNote:'Advisories are generated automatically from forecast values. They are not official warnings.',
- loc_fail:'Could not read your location. Pick a district instead.',loc_far:'You seem to be outside Sri Lanka. Showing the nearest place.',copied:'Forecast copied',copyFail:'Copy is blocked here',share:'Copy forecast'},
+ seaNotices:'Sea notices',seaNoticesSub:'Check before going out on the water or to the beach',seaNoticesNote:'Model values here are indicative. Always follow official notices when they differ.',loc_fail:'Could not read your location. Pick a district instead.',loc_far:'You seem to be outside Sri Lanka. Showing the nearest place.',copied:'Forecast copied',copyFail:'Copy is blocked here',share:'Copy forecast'},
 si:{retry:'සජීවී දත්ත උත්සාහ කරන්න',search:'දිස්ත්‍රික්කය හෝ නගරය සොයන්න',slTime:'ශ්‍රී ලංකා වේලාව',save:'☆ සුරකින්න',saved:'★ සුරැකිණි',map:'ලංකා සිතියම',mapSub:'පුරෝකථනය බැලීමට දිස්ත්‍රික්කයක් තෝරන්න',temp:'උෂ්ණත්වය',rain:'වැසි',windL:'සුළඟ',humidity:'ආර්ද්‍රතාව',hourly:'ඉදිරි පැය 24',daily:'දින 10 පුරෝකථනය',overview:'සියලු දිස්ත්‍රික්ක',feels:'දැනෙන උෂ්ණත්වය',rainChance:'වැසි සම්භාවිතාව',uv:'UV දර්ශකය',wind:'සුළඟ',pressure:'වායු පීඩනය',visibility:'දෘශ්‍යතාව',cloud:'වලාකුළු',rainfall:'අද වර්ෂාපතනය',gust:'හදිසි සුළං',sunrise:'හිරු නැගීම',sunset:'හිරු බැසීම',moon:'සඳ',air:'වායු ගුණාත්මකභාවය',sea:'මුහුදු තත්ත්වය',alerts:'අනතුරු ඇඟවීම්',now:'දැන්',today:'අද',high:'ඉ',low:'පහ',hottest:'වඩාත් උණුසුම්',coolest:'වඩාත් සිසිල්',wettest:'වැඩිම වැසි',
  c_clear:'පැහැදිලි',c_pcloud:'අර්ධ වලාකුළු',c_cloud:'වලාකුළු සහිත',c_fog:'මීදුම',c_drizzle:'සැහැල්ලු වැසි',c_rain:'වැසි',c_heavy:'මහ වැසි',c_storm:'ගිගුරුම් සහිත වැසි',
- s_ne:'ඊසාන දිග මෝසම',s_im1:'පළමු අන්තර් මෝසම',s_sw:'නිරිතදිග මෝසම',s_im2:'දෙවන අන්තර් මෝසම'},
+ seaNotices:'මුහුදු දැනුම්දීම්',s_ne:'ඊසාන දිග මෝසම',s_im1:'පළමු අන්තර් මෝසම',s_sw:'නිරිතදිග මෝසම',s_im2:'දෙවන අන්තර් මෝසම'},
 ta:{retry:'நேரடி தரவை முயற்சிக்க',search:'மாவட்டம் அல்லது நகரத்தைத் தேடுங்கள்',slTime:'இலங்கை நேரம்',save:'☆ சேமி',saved:'★ சேமிக்கப்பட்டது',map:'இலங்கை வரைபடம்',mapSub:'முன்னறிவிப்புக்கு மாவட்டத்தைத் தேர்ந்தெடுக்கவும்',temp:'வெப்பநிலை',rain:'மழை',windL:'காற்று',humidity:'ஈரப்பதம்',hourly:'அடுத்த 24 மணிநேரம்',daily:'10 நாள் முன்னறிவிப்பு',overview:'அனைத்து மாவட்டங்கள்',feels:'உணர்வு வெப்பநிலை',rainChance:'மழை வாய்ப்பு',uv:'UV குறியீடு',wind:'காற்று',pressure:'அழுத்தம்',visibility:'பார்வைத்திறன்',cloud:'மேகமூட்டம்',rainfall:'இன்றைய மழை',gust:'திடீர் காற்று',sunrise:'சூரிய உதயம்',sunset:'சூரிய அஸ்தமனம்',moon:'நிலா',air:'காற்றுத் தரம்',sea:'கடல் நிலை',alerts:'எச்சரிக்கைகள்',now:'இப்போது',today:'இன்று',high:'உ',low:'கு',hottest:'அதிக வெப்பம்',coolest:'குளிர்ச்சி',wettest:'அதிக மழை',
  c_clear:'தெளிவு',c_pcloud:'பகுதி மேகமூட்டம்',c_cloud:'மேகமூட்டம்',c_fog:'மூடுபனி',c_drizzle:'தூறல்',c_rain:'மழை',c_heavy:'கனமழை',c_storm:'இடியுடன் கூடிய மழை',
- s_ne:'வடகிழக்குப் பருவமழை',s_im1:'முதல் பருவ இடைப்பட்ட காலம்',s_sw:'தென்மேற்குப் பருவமழை',s_im2:'இரண்டாம் பருவ இடைப்பட்ட காலம்'}
+ seaNotices:'கடல் அறிவிப்புகள்',s_ne:'வடகிழக்குப் பருவமழை',s_im1:'முதல் பருவ இடைப்பட்ட காலம்',s_sw:'தென்மேற்குப் பருவமழை',s_im2:'இரண்டாம் பருவ இடைப்பட்ட காலம்'}
 };
 const LOC={en:'en-GB',si:'si-LK',ta:'ta-LK'};
 
@@ -536,7 +541,7 @@ function alerts(){
   if(g>=60)add('bad','Strong gusts',`Gusts up to ${fW(g)} ${wLbl[S.u.w]} are possible.`);else if(g>=45)add('warn','Gusty winds',`Gusts up to ${fW(g)} ${wLbl[S.u.w]} are possible.`);
   if(d0.feelMax>=41)add('bad','Extreme heat',`It may feel like ${fT(d0.feelMax)} today. Drink water and avoid midday sun.`);else if(d0.feelMax>=38)add('warn','Heat caution',`It may feel like ${fT(d0.feelMax)} today. Take breaks in the shade.`);
   if(d0.uv>=11)add('bad','Extreme UV','Burn time is a few minutes without protection around midday.');else if(d0.uv>=8)add('warn','Very high UV','Use sunscreen and a hat between 10 AM and 3 PM.');
-  if(m.sea){if(m.sea.h>=3)add('bad','Rough seas','Waves above 3 m. Small craft should stay ashore.');else if(m.sea.h>=2)add('warn','Choppy seas','Waves above 2 m. Small boats take care.');}
+  if(m.sea){if(m.sea.h>=3)add('bad','Rough seas','Waves above 3 m. Small craft should stay ashore. Check Navy and Fisheries notices.');else if(m.sea.h>=2)add('warn','Choppy seas','Waves above 2 m. Small boats take care. Check Navy and Fisheries notices.');}
   if(m.aq){if(m.aq.aqi>150)add('bad','Unhealthy air','Limit outdoor exertion.');else if(m.aq.aqi>100)add('warn','Poor air for sensitive groups','People with asthma should reduce time outdoors.');}
   return out;
 }
@@ -640,6 +645,11 @@ function renderAirSea(){
     <div class="meter" style="background:linear-gradient(90deg,#4caf50 0 12%,#8ccf5c 12% 31%,#f5a524 31% 62%,#e5532d 62% 100%)"><i style="left:${Math.min(100,s.h/4*100)}%"></i></div>
     <div class="pol"><div><small>${t('period')}</small><b class="num">${s.per.toFixed(0)} s</b></div><div><small>${t('swell')}</small><b class="num">${s.swell.toFixed(1)} m</b></div><div><small>${t('from')}</small><b>${dirL(s.dir)}</b></div><div><small>${t('wind')}</small><b class="num">${fW(m.current.wind)}</b></div></div>
     <p class="note">Indicative offshore model values. Follow Navy and Fisheries Department notices before going to sea.</p></div>`}
+  if(S.place.coast){h+=`<div class="card" style="grid-column:1/-1"><div class="card-h"><div><h2>${t('seaNotices')}</h2><p>${t('seaNoticesSub')}</p></div></div>
+    <div class="links"><a href="https://meteo.gov.lk" target="_blank" rel="noopener"><b>Department of Meteorology</b><span>Official weather and marine warnings</span></a>
+    <a href="https://www.navy.lk" target="_blank" rel="noopener"><b>Sri Lanka Navy</b><span>Notices for fishermen and sea users</span></a>
+    <a href="https://www.fisheries.gov.lk" target="_blank" rel="noopener"><b>Fisheries Department</b><span>Fishing and harbour announcements</span></a></div>
+    <p class="note">${t('seaNoticesNote')}</p></div>`}
   $('#airsea').innerHTML=h;$('#airsea').style.display=h?'grid':'none';
   if(h&&!(m.aq&&m.sea))$('#airsea').style.gridTemplateColumns='minmax(0,1fr)'; else $('#airsea').style.gridTemplateColumns='';
 }
