@@ -8,7 +8,7 @@ skipped and the last good file is kept, so a broken website never wipes or inven
 Optional repository variables can pin exact feed addresses:
   METEO_FEED_URL, NAVY_FEED_URL, FISHERIES_FEED_URL
 """
-import hashlib, json, os, re, sys, urllib.parse, urllib.request
+import hashlib, json, os, re, sys, time, urllib.parse, urllib.request
 import datetime as dt
 import xml.etree.ElementTree as ET
 from email.utils import parsedate_to_datetime
@@ -46,7 +46,7 @@ def log(*a):
     print(*a, file=sys.stderr)
 
 
-def fetch(url, timeout=25):
+def fetch(url, timeout=10):
     req = urllib.request.Request(url, headers={"User-Agent": UA, "Accept": "application/xml,text/xml,application/rss+xml,application/atom+xml,text/html;q=0.8,*/*;q=0.5"})
     with urllib.request.urlopen(req, timeout=timeout) as r:
         return r.read()
@@ -242,7 +242,11 @@ def run_source(src):
     cands = [pinned] if pinned else candidate_feeds(src["home"])
     log(f"[{src['name']}] trying {len(cands)} candidate feed address(es)")
     notices = []
+    started = time.time()
     for url in cands:
+        if time.time() - started > 75:
+            log("  time budget for this source used up")
+            break
         try:
             root = load_feed(url)
         except Exception as ex:
