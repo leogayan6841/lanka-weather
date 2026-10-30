@@ -1,7 +1,7 @@
 name: Update official notices
 on:
   schedule:
-    - cron: "*/30 * * * *"
+    - cron: "11,41 * * * *"
   workflow_dispatch:
   push:
     paths:

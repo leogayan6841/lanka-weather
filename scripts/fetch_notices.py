@@ -327,7 +327,7 @@ def main():
             prev = {"notices": []}
         fresh = parse_date(prev.get("updated", ""))
         same_status = [(x["name"], x["ok"]) for x in prev.get("sources", [])] == [(x["name"], x["ok"]) for x in statuses]
-        if same_status and fresh and (NOW - fresh) < dt.timedelta(hours=6):
+        if same_status and fresh and (NOW - fresh) < dt.timedelta(minutes=55):
             return 0
         prev.update(updated=NOW.isoformat(timespec="minutes"), sources=statuses)
         with open(OUT, "w", encoding="utf-8") as f:
@@ -343,7 +343,7 @@ def main():
         old = {}
     same = old.get("notices") == new["notices"] and [(s["name"], s["ok"]) for s in old.get("sources", [])] == [(s["name"], s["ok"]) for s in statuses]
     fresh = parse_date(old.get("updated", ""))
-    if same and fresh and (NOW - fresh) < dt.timedelta(hours=6):
+    if same and fresh and (NOW - fresh) < dt.timedelta(minutes=55):
         log("No change.")
         return 0
     with open(OUT, "w", encoding="utf-8") as f:

@@ -851,7 +851,9 @@ function renderFeedStatus(){
   const el=$('#feedStatus');if(!el)return;const f=S.feed;
   if(!f){el.textContent='';return}
   const ok=(f.sources||[]).filter(x=>x.ok).map(x=>x.name),d=new Date(f.updated);
-  el.textContent=isNaN(d)?'':`Official notices last checked ${d.toLocaleString(LOC[S.lang],{day:'numeric',month:'short',hour:'numeric',minute:'2-digit',timeZone:'Asia/Colombo'})}`+(ok.length?`, read from ${ok.join(', ')}.`:'. No source could be read.')
+  if(isNaN(d)){el.textContent='';return}
+  const late=Date.now()-d.getTime()>3*3600*1000;
+  el.textContent=`Official notices last checked ${d.toLocaleString(LOC[S.lang],{day:'numeric',month:'short',hour:'numeric',minute:'2-digit',timeZone:'Asia/Colombo'})}`+(ok.length?`, read from ${ok.join(', ')}.`:'. No source could be read.')+(late?' Automatic checks are running late, so recent notices may be missing. Check meteo.gov.lk.':' Checks run about every 30 to 60 minutes.');
 }
 function renderNotices(){
   const box=$('#notices'),p=S.place,today=localNow().toISOString().slice(0,10),prov=p.prov.toLowerCase();
