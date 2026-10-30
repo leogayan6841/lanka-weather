@@ -1,19 +1,4 @@
 {
-  "notices": [
-    {
-      "id": "nmvugasan",
-      "source": "Sri Lanka Navy",
-      "severity": "info",
-      "title": "test notice",
-      "text": "test",
-      "areas": [
-        "polonnaruwa",
-        "badulla",
-        "monaragala",
-        "coastal"
-      ],
-      "date": "2026-10-30"
-    }
-  ],
+  "notices": [],
   "updated": "2026-10-30T04:07:04.895Z"
 }
