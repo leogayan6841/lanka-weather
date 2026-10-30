@@ -185,6 +185,13 @@ th button[aria-pressed="true"]{color:var(--accent)}
 tbody tr{cursor:pointer}
 tbody tr:hover,tbody tr[aria-current="true"]{background:var(--surface2)}
 td svg{width:26px;height:26px;vertical-align:middle;margin-right:8px}
+.lead{font-size:19px;line-height:1.45;margin:0 0 14px;max-width:70ch;font-weight:500}
+.outlook{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.outlook li{display:grid;grid-template-columns:12px minmax(150px,230px) 1fr;gap:12px;align-items:baseline;padding:10px 12px;border-radius:12px;background:var(--surface2)}
+.outlook li i{width:12px;height:12px;border-radius:50%;background:var(--c);align-self:center}
+.outlook li b{font-weight:700}
+.outlook li span{color:var(--ink)}
+@media (max-width:640px){.outlook li{grid-template-columns:12px 1fr}.outlook li span{grid-column:2}}
 .notice{display:flex;flex-direction:column;gap:6px;background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--c,var(--sapphire));border-radius:14px;padding:14px 18px}
 .notice .src{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted)}
 .notice .src b{color:var(--ink);background:var(--surface2);border:1px solid var(--line);border-radius:99px;padding:2px 10px;font-size:12px;letter-spacing:.03em}
@@ -315,6 +322,8 @@ footer p{margin:0;max-width:70ch}
     <div class="alerts" id="alerts"></div>
     <p class="note" id="alNote"></p>
   </section>
+
+  <section class="block" id="outlook" aria-label="Today's outlook"></section>
 
   <section class="block card" aria-labelledby="hrH">
     <div class="card-h"><div><h2 id="hrH" data-i="hourly">Next 24 hours</h2><p data-i="hourlySub">Temperature curve with chance of rain</p></div></div>
@@ -489,9 +498,9 @@ function norm(j,aj,mj){
 }
 async function liveIsland(){
   const la=DISTRICTS.map(p=>p.lat).join(','),lo=DISTRICTS.map(p=>p.lon).join(',');
-  const j=await getJSON(`${FC}&latitude=${la}&longitude=${lo}&forecast_days=1&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m,wind_direction_10m,is_day&daily=precipitation_sum,precipitation_probability_max`);
+  const j=await getJSON(`${FC}&latitude=${la}&longitude=${lo}&forecast_days=1&current=temperature_2m,apparent_temperature,relative_humidity_2m,weather_code,wind_speed_10m,wind_direction_10m,is_day&daily=precipitation_sum,precipitation_probability_max,weather_code`);
   const arr=Array.isArray(j)?j:[j];
-  return arr.map((x,i)=>({p:DISTRICTS[i],t:x.current.temperature_2m,feels:x.current.apparent_temperature,rh:x.current.relative_humidity_2m,code:x.current.weather_code,wind:x.current.wind_speed_10m,dir:x.current.wind_direction_10m,day:!!x.current.is_day,rain:x.daily.precipitation_sum[0]||0,pop:x.daily.precipitation_probability_max[0]||0}));
+  return arr.map((x,i)=>({p:DISTRICTS[i],t:x.current.temperature_2m,feels:x.current.apparent_temperature,rh:x.current.relative_humidity_2m,code:x.current.weather_code,wind:x.current.wind_speed_10m,dir:x.current.wind_direction_10m,day:!!x.current.is_day,rain:x.daily.precipitation_sum[0]||0,pop:x.daily.precipitation_probability_max[0]||0,dcode:x.daily.weather_code[0]}));
 }
 
 /* ---------- data: sample (used only when live data cannot be reached) ---------- */
@@ -525,7 +534,7 @@ function demoFor(p){
   const sea=p.coast?{h:(p.prov==='Eastern'?.9:1.35)+r()*.7,dir:p.prov==='Northern'?60:205+r()*30,per:7+r()*3,swell:(p.prov==='Eastern'?.6:1)+r()*.4}:null;
   return{live:false,current,hourly,daily,aq,sea};
 }
-const demoIsland=()=>DISTRICTS.map(p=>{const m=demoFor(p);return{p,t:m.current.t,feels:m.current.feels,rh:m.current.rh,code:m.current.code,wind:m.current.wind,dir:m.current.dir,day:m.current.day,rain:m.daily[0].rain,pop:m.daily[0].pop}});
+const demoIsland=()=>DISTRICTS.map(p=>{const m=demoFor(p);return{p,t:m.current.t,feels:m.current.feels,rh:m.current.rh,code:m.current.code,wind:m.current.wind,dir:m.current.dir,day:m.current.day,rain:m.daily[0].rain,pop:m.daily[0].pop,dcode:m.daily[0].code}});
 
 /* ---------- loading ---------- */
 async function loadPlace(){
@@ -535,7 +544,7 @@ async function loadPlace(){
 }
 async function loadIsland(){
   try{S.island=await liveIsland()}catch(e){S.island=demoIsland()}
-  renderMap();renderTable();
+  renderMap();renderTable();if(S.m)renderOutlook();
 }
 function banner(){const b=$('#banner');b.hidden=!S.demo;$('#bannerTxt').textContent=t('sample')}
 
@@ -581,10 +590,37 @@ function render(){
   $('#hStrip').innerHTML=[[t('humidity'),Math.round(c.rh)+'%'],[t('wind'),fW(c.wind)+' '+wLbl[S.u.w]+' '+dirL(c.dir)],[t('rainChance'),d0.pop+'%'],[t('uv'),Math.round(d0.uv)]].map(a=>`<div><small>${a[0]}</small><b class="num">${a[1]}</b></div>`).join('');
   setSky(k,c.day);
   const fav=S.favs.includes(p.id);const b=$('#fav');b.setAttribute('aria-pressed',fav);b.textContent=fav?t('saved'):t('save');
-  renderNotices();renderAlerts();renderHourly();renderDaily();renderTiles();renderAirSea();renderSeason();renderQuick();renderMap();renderTable();
+  renderNotices();renderAlerts();renderOutlook();renderHourly();renderDaily();renderTiles();renderAirSea();renderSeason();renderQuick();renderMap();renderTable();
   document.title=`${fT(c.t)} ${lname(p)} · Lanka Weather`;
 }
 function tickClock(){const L=localNow();$('#clock').textContent=((L.getUTCHours()%12)||12)+':'+pad(L.getUTCMinutes())+' '+(L.getUTCHours()>=12?'PM':'AM')}
+
+/* ---------- today's outlook (written from forecast data, not an official statement) ---------- */
+const PROV_ORDER=['Western','Sabaragamuwa','Central','Southern','Uva','North Western','North Central','Eastern','Northern'];
+function renderOutlook(){
+  const box=$('#outlook');if(!S.m){return}
+  const m=S.m,d0=m.daily[0],p=S.place,unit=wLbl[S.u.w];
+  const rest=m.hourly.filter(h=>h.time.slice(0,10)===d0.date),wet=rest.filter(h=>h.pop>=50),storm=rest.some(h=>h.code>=95);
+  const when=wet.length?(wet.length===1||wet[0].time===wet[wet.length-1].time?` around ${fHour(wet[0].time,true)}`:` mostly between ${fHour(wet[0].time,true)} and ${fHour(wet[wet.length-1].time,true)}`):'';
+  const lvl=d0.rain>=50?'Heavy rain is likely':(d0.rain>=10||d0.pop>=60)?'Showers or thundershowers are likely':d0.pop>=30?'A few showers are possible':'Mainly fair weather is expected';
+  const lead=`${lvl} in ${lname(p)}${(d0.pop>=30||d0.rain>=10)?when:''}. ${d0.rain>=1?`About ${fR(cR(d0.rain))} ${rLbl()} of rain is expected. `:''}${storm?'Lightning is possible, so stay indoors during thunderstorms. ':''}The high will be near ${fT(d0.tmax)} and winds up to ${fW(d0.wind)} ${unit}.`;
+  let items='';
+  if(S.island){
+    const col={bad:'var(--bad)',warn:'var(--warn)',info:'var(--sapphire)',good:'var(--good)'},list=[];
+    const heavy=S.island.filter(r=>r.rain>=50).map(r=>lname(r.p)),thun=S.island.filter(r=>r.dcode>=95).map(r=>lname(r.p));
+    const byProv={};S.island.forEach(r=>{(byProv[r.p.prov]=byProv[r.p.prov]||[]).push(r)});
+    const showers=[],few=[],fair=[];
+    PROV_ORDER.forEach(pv=>{const ds=byProv[pv];if(!ds)return;const mr=Math.max(...ds.map(r=>r.rain)),mp=Math.max(...ds.map(r=>r.pop));
+      (mr>=10||mp>=60?showers:mp>=30?few:fair).push(pv)});
+    if(heavy.length)list.push(['bad',`Heavy rain possible (${fR(cR(50))} ${rLbl()} or more)`,heavy.join(', ')]);
+    if(thun.length)list.push(['warn','Thunderstorms and lightning possible',thun.join(', ')]);
+    if(showers.length)list.push(['info','Showers or thundershowers likely',showers.join(', ')+(showers.length>1?' provinces':' Province')]);
+    if(few.length)list.push(['info','A few showers possible',few.join(', ')+(few.length>1?' provinces':' Province')]);
+    if(fair.length)list.push(['good','Mainly fair',fair.join(', ')+(fair.length>1?' provinces':' Province')]);
+    items='<ul class="outlook">'+list.map(([c,a,b])=>`<li style="--c:${col[c]}"><i></i><b>${a}</b><span>${esc(b)}</span></li>`).join('')+'</ul>';
+  }
+  box.innerHTML=`<div class="card"><div class="card-h"><div><h2>Today's outlook</h2><p>Plain-language summary written from the forecast data. It is not an official statement.</p></div></div><p class="lead">${esc(lead)}</p>${items}<p class="note">For the Department of Meteorology's own daily forecast see <a href="https://meteo.gov.lk" target="_blank" rel="noopener">meteo.gov.lk</a>.</p></div>`;
+}
 
 /* ---------- hourly chart ---------- */
 function smooth(pts){let d=`M${pts[0][0]} ${pts[0][1]}`;for(let i=0;i<pts.length-1;i++){const p0=pts[i-1]||pts[i],p1=pts[i],p2=pts[i+1],p3=pts[i+2]||p2;d+=`C${(p1[0]+(p2[0]-p0[0])/6).toFixed(1)} ${(p1[1]+(p2[1]-p0[1])/6).toFixed(1)} ${(p2[0]-(p3[0]-p1[0])/6).toFixed(1)} ${(p2[1]-(p3[1]-p1[1])/6).toFixed(1)} ${p2[0]} ${p2[1]}`}return d}

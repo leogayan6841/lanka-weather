@@ -310,7 +310,20 @@ def run_source(src):
     return status, notices
 
 
+def probe_meteo_alert_server():
+    """Diagnostic only: list links on the Met Department alert server, to look for a daily forecast source."""
+    try:
+        html = fetch("https://was.meteo.gov.lk/", timeout=15).decode("utf-8", "ignore")
+        links = sorted(set(urllib.parse.urljoin("https://was.meteo.gov.lk/", unescape(m)) for m in re.findall(r'href=["\']([^"\'#]+)', html, re.I)))
+        log(f"[probe] was.meteo.gov.lk: {len(html)} bytes, {len(links)} links")
+        for l in links[:60]:
+            log("  link " + l)
+    except Exception as ex:
+        log(f"[probe] was.meteo.gov.lk not readable: {type(ex).__name__}")
+
+
 def main():
+    probe_meteo_alert_server()
     statuses, allnotices = [], []
     for s in SOURCES:
         try:
