@@ -1,10 +1,10 @@
 {
-  "updated": "2026-10-30T09:57+05:30",
+  "updated": "2026-10-30T10:06+05:30",
   "sources": [
     {
       "name": "Department of Meteorology",
-      "feed": null,
-      "ok": false,
+      "feed": "https://was.meteo.gov.lk/cap/en/rss.xml",
+      "ok": true,
       "items": 0,
       "notices": 0
     },
