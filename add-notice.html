@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Add Notice - Lanka Weather</title>
+<style>
+:root{--bg:#E8F0F3;--surface:#fff;--ink:#0D2233;--muted:#51677A;--line:#D2DFE5;--accent:#BF4E14;--sap:#1650B8;color-scheme:light}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:760px;margin:0 auto;padding:24px 16px 60px;display:flex;flex-direction:column;gap:16px}
+h1{margin:0;font-size:28px;letter-spacing:-.02em}p{margin:0;color:var(--muted)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:12px}
+h2{margin:0;font-size:18px}label{display:flex;flex-direction:column;gap:4px;font-weight:600;font-size:14px}
+input,select,textarea{font:inherit;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);width:100%}
+textarea{min-height:110px;resize:vertical}select[multiple]{min-height:150px}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+button{font:inherit;font-weight:700;padding:11px 18px;border-radius:99px;border:0;background:var(--accent);color:#fff;cursor:pointer}
+button.alt{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+.chk{flex-direction:row;align-items:center;gap:8px;font-weight:500}.chk input{width:auto}
+.err{color:#BF3A2B;font-weight:600}.ok{color:#1B8A56;font-weight:600}
+a{color:var(--sap)}:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+small{color:var(--muted)}
+</style></head><body><main>
+<div><h1>Add an official notice</h1><p>Copy a notice from the Navy, Department of Meteorology or Fisheries Department, fill the form, then paste the result into <b>notices.json</b> on GitHub. <a href="./">Back to the site</a></p></div>
+
+<div class="card"><h2>1. Current notices.json</h2>
+<label for="cur">Open notices.json on GitHub, select everything, and paste it here. Leave empty to start fresh.<textarea id="cur" placeholder='{"notices":[]}'></textarea></label></div>
+
+<div class="card"><h2>2. The notice</h2>
+<div class="row">
+<label for="src">Source<select id="src"><option>Sri Lanka Navy</option><option>Department of Meteorology</option><option>Fisheries Department</option><option>NBRO</option><option>Other</option></select></label>
+<label for="sev">Importance<select id="sev"><option value="info">Information</option><option value="warn">Caution</option><option value="bad">Warning</option></select></label></div>
+<label for="ttl">Title<input id="ttl" maxlength="140" placeholder="Fishermen advised not to venture out to sea"></label>
+<label for="txt">Text (copy it from the original notice)<textarea id="txt"></textarea></label>
+<label for="lnk">Link to the original (optional)<input id="lnk" type="url" placeholder="https://"></label>
+<div class="row"><label for="dt">Date issued<input id="dt" type="date"></label><label for="ex">Hide after (optional)<input id="ex" type="date"></label></div>
+<label class="chk" for="all"><input type="checkbox" id="all" checked> Show on the whole island</label>
+<label class="chk" for="coast"><input type="checkbox" id="coast"> Show on all coastal places</label>
+<label for="areas">Or choose places (hold Ctrl or Cmd to select several)<select id="areas" multiple><option value="colombo">Colombo (district)</option><option value="gampaha">Gampaha (district)</option><option value="kalutara">Kalutara (district)</option><option value="kandy">Kandy (district)</option><option value="matale">Matale (district)</option><option value="nuwara-eliya">Nuwara Eliya (district)</option><option value="galle">Galle (district)</option><option value="matara">Matara (district)</option><option value="hambantota">Hambantota (district)</option><option value="jaffna">Jaffna (district)</option><option value="kilinochchi">Kilinochchi (district)</option><option value="mannar">Mannar (district)</option><option value="mullaitivu">Mullaitivu (district)</option><option value="vavuniya">Vavuniya (district)</option><option value="trincomalee">Trincomalee (district)</option><option value="batticaloa">Batticaloa (district)</option><option value="ampara">Ampara (district)</option><option value="kurunegala">Kurunegala (district)</option><option value="puttalam">Puttalam (district)</option><option value="anuradhapura">Anuradhapura (district)</option><option value="polonnaruwa">Polonnaruwa (district)</option><option value="badulla">Badulla (district)</option><option value="monaragala">Monaragala (district)</option><option value="ratnapura">Ratnapura (district)</option><option value="kegalle">Kegalle (district)</option><option value="negombo">Negombo</option><option value="beruwala">Beruwala</option><option value="bentota">Bentota</option><option value="hikkaduwa">Hikkaduwa</option><option value="unawatuna">Unawatuna</option><option value="mirissa">Mirissa</option><option value="arugam-bay">Arugam Bay</option><option value="sigiriya">Sigiriya</option><option value="ella">Ella</option><option value="yala">Yala</option></select></label>
+<small>If you choose places or coastal, untick &ldquo;whole island&rdquo;.</small>
+<div><button id="go" type="button">Build notices.json</button></div></div>
+
+<div class="card"><h2>3. Copy and paste into GitHub</h2>
+<p id="msg"></p><textarea id="out" readonly style="min-height:200px;font-family:ui-monospace,monospace;font-size:13px"></textarea>
+<div><button id="copy" class="alt" type="button">Copy</button></div>
+<p>On GitHub: open <b>notices.json</b> &rarr; pencil icon &rarr; select all &rarr; paste &rarr; Commit changes. The site updates in a minute or two.</p></div>
+</main>
+<script>
+const $=s=>document.querySelector(s);
+$('#dt').value=new Date(Date.now()+19800000).toISOString().slice(0,10);
+$('#go').onclick=()=>{
+  const m=$('#msg');m.className='';m.textContent='';
+  let data={notices:[]};const cur=$('#cur').value.trim();
+  if(cur){try{data=JSON.parse(cur);if(!Array.isArray(data.notices))throw 0}catch(e){m.className='err';m.textContent='The pasted notices.json is not valid. Copy the whole file again.';return}}
+  const title=$('#ttl').value.trim();if(!title){m.className='err';m.textContent='Add a title.';return}
+  const lnk=$('#lnk').value.trim();if(lnk&&!/^https?:\/\//i.test(lnk)){m.className='err';m.textContent='The link must start with https://';return}
+  let areas=[...$('#areas').selectedOptions].map(o=>o.value);if($('#coast').checked)areas.push('coastal');if($('#all').checked||!areas.length)areas=['all'];
+  const n={id:'n'+Date.now().toString(36),source:$('#src').value,severity:$('#sev').value,title,text:$('#txt').value.trim(),areas,date:$('#dt').value||undefined,expires:$('#ex').value||undefined,link:lnk||undefined};
+  Object.keys(n).forEach(k=>n[k]===undefined&&delete n[k]);
+  data.notices.unshift(n);data.updated=new Date().toISOString();
+  $('#out').value=JSON.stringify(data,null,2);m.className='ok';m.textContent='Done. This is the full new file. Copy it below.';
+};
+$('#copy').onclick=async()=>{try{await navigator.clipboard.writeText($('#out').value);$('#msg').className='ok';$('#msg').textContent='Copied.'}catch(e){$('#out').select();$('#msg').className='';$('#msg').textContent='Press Ctrl+C (Cmd+C) to copy the selected text.'}};
+</script></body></html>

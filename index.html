@@ -185,6 +185,15 @@ th button[aria-pressed="true"]{color:var(--accent)}
 tbody tr{cursor:pointer}
 tbody tr:hover,tbody tr[aria-current="true"]{background:var(--surface2)}
 td svg{width:26px;height:26px;vertical-align:middle;margin-right:8px}
+.notice{display:flex;flex-direction:column;gap:6px;background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--c,var(--sapphire));border-radius:14px;padding:14px 18px}
+.notice .src{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.notice .src b{color:var(--ink);background:var(--surface2);border:1px solid var(--line);border-radius:99px;padding:2px 10px;font-size:12px;letter-spacing:.03em}
+.notice h3{font-size:18px;font-weight:700;letter-spacing:-.01em}
+.notice p{margin:0;white-space:pre-line;max-width:80ch}
+.notice a{font-weight:600}
+.notices-h{display:flex;align-items:baseline;gap:10px;margin:0 2px 10px}
+.notices-h h2{font-size:21px;font-weight:700;letter-spacing:-.02em}
+.notices-h span{color:var(--muted);font-size:14px}
 .links{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
 .links a{display:flex;flex-direction:column;gap:2px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:var(--surface2);text-decoration:none;color:var(--ink)}
 .links a:hover{border-color:var(--sapphire)}
@@ -300,6 +309,8 @@ footer p{margin:0;max-width:70ch}
     </section>
   </div>
 
+  <section class="block" id="notices" aria-label="Official notices" hidden></section>
+
   <section class="block" aria-labelledby="alH">
     <div class="alerts" id="alerts"></div>
     <p class="note" id="alNote"></p>
@@ -399,13 +410,13 @@ en:{retry:'Try live data',search:'Search district or town',slTime:'Sri Lanka tim
  sea_calm:'Calm',sea_slight:'Slight',sea_mod:'Moderate',sea_rough:'Rough',sea_vrough:'Very rough',press_low:'Low',press_norm:'Normal',press_high:'High',
  s_ne:'Northeast monsoon',s_im1:'First inter-monsoon',s_sw:'Southwest monsoon',s_im2:'Second inter-monsoon',
  noAlerts:'No weather advisories for this location',noAlertsSub:'Nothing in the forecast crosses an advisory threshold.',alNote:'Advisories are generated automatically from forecast values. They are not official warnings.',
- seaNotices:'Sea notices',seaNoticesSub:'Check before going out on the water or to the beach',seaNoticesNote:'Model values here are indicative. Always follow official notices when they differ.',loc_fail:'Could not read your location. Pick a district instead.',loc_far:'You seem to be outside Sri Lanka. Showing the nearest place.',copied:'Forecast copied',copyFail:'Copy is blocked here',share:'Copy forecast'},
+ officialN:'Official notices',officialSub:'Posted by the authorities, not generated from forecast data',readOrig:'Read the original',seaNotices:'Sea notices',seaNoticesSub:'Check before going out on the water or to the beach',seaNoticesNote:'Model values here are indicative. Always follow official notices when they differ.',loc_fail:'Could not read your location. Pick a district instead.',loc_far:'You seem to be outside Sri Lanka. Showing the nearest place.',copied:'Forecast copied',copyFail:'Copy is blocked here',share:'Copy forecast'},
 si:{retry:'සජීවී දත්ත උත්සාහ කරන්න',search:'දිස්ත්‍රික්කය හෝ නගරය සොයන්න',slTime:'ශ්‍රී ලංකා වේලාව',save:'☆ සුරකින්න',saved:'★ සුරැකිණි',map:'ලංකා සිතියම',mapSub:'පුරෝකථනය බැලීමට දිස්ත්‍රික්කයක් තෝරන්න',temp:'උෂ්ණත්වය',rain:'වැසි',windL:'සුළඟ',humidity:'ආර්ද්‍රතාව',hourly:'ඉදිරි පැය 24',daily:'දින 10 පුරෝකථනය',overview:'සියලු දිස්ත්‍රික්ක',feels:'දැනෙන උෂ්ණත්වය',rainChance:'වැසි සම්භාවිතාව',uv:'UV දර්ශකය',wind:'සුළඟ',pressure:'වායු පීඩනය',visibility:'දෘශ්‍යතාව',cloud:'වලාකුළු',rainfall:'අද වර්ෂාපතනය',gust:'හදිසි සුළං',sunrise:'හිරු නැගීම',sunset:'හිරු බැසීම',moon:'සඳ',air:'වායු ගුණාත්මකභාවය',sea:'මුහුදු තත්ත්වය',alerts:'අනතුරු ඇඟවීම්',now:'දැන්',today:'අද',high:'ඉ',low:'පහ',hottest:'වඩාත් උණුසුම්',coolest:'වඩාත් සිසිල්',wettest:'වැඩිම වැසි',
  c_clear:'පැහැදිලි',c_pcloud:'අර්ධ වලාකුළු',c_cloud:'වලාකුළු සහිත',c_fog:'මීදුම',c_drizzle:'සැහැල්ලු වැසි',c_rain:'වැසි',c_heavy:'මහ වැසි',c_storm:'ගිගුරුම් සහිත වැසි',
- seaNotices:'මුහුදු දැනුම්දීම්',s_ne:'ඊසාන දිග මෝසම',s_im1:'පළමු අන්තර් මෝසම',s_sw:'නිරිතදිග මෝසම',s_im2:'දෙවන අන්තර් මෝසම'},
+ officialN:'නිල දැනුම්දීම්',seaNotices:'මුහුදු දැනුම්දීම්',s_ne:'ඊසාන දිග මෝසම',s_im1:'පළමු අන්තර් මෝසම',s_sw:'නිරිතදිග මෝසම',s_im2:'දෙවන අන්තර් මෝසම'},
 ta:{retry:'நேரடி தரவை முயற்சிக்க',search:'மாவட்டம் அல்லது நகரத்தைத் தேடுங்கள்',slTime:'இலங்கை நேரம்',save:'☆ சேமி',saved:'★ சேமிக்கப்பட்டது',map:'இலங்கை வரைபடம்',mapSub:'முன்னறிவிப்புக்கு மாவட்டத்தைத் தேர்ந்தெடுக்கவும்',temp:'வெப்பநிலை',rain:'மழை',windL:'காற்று',humidity:'ஈரப்பதம்',hourly:'அடுத்த 24 மணிநேரம்',daily:'10 நாள் முன்னறிவிப்பு',overview:'அனைத்து மாவட்டங்கள்',feels:'உணர்வு வெப்பநிலை',rainChance:'மழை வாய்ப்பு',uv:'UV குறியீடு',wind:'காற்று',pressure:'அழுத்தம்',visibility:'பார்வைத்திறன்',cloud:'மேகமூட்டம்',rainfall:'இன்றைய மழை',gust:'திடீர் காற்று',sunrise:'சூரிய உதயம்',sunset:'சூரிய அஸ்தமனம்',moon:'நிலா',air:'காற்றுத் தரம்',sea:'கடல் நிலை',alerts:'எச்சரிக்கைகள்',now:'இப்போது',today:'இன்று',high:'உ',low:'கு',hottest:'அதிக வெப்பம்',coolest:'குளிர்ச்சி',wettest:'அதிக மழை',
  c_clear:'தெளிவு',c_pcloud:'பகுதி மேகமூட்டம்',c_cloud:'மேகமூட்டம்',c_fog:'மூடுபனி',c_drizzle:'தூறல்',c_rain:'மழை',c_heavy:'கனமழை',c_storm:'இடியுடன் கூடிய மழை',
- seaNotices:'கடல் அறிவிப்புகள்',s_ne:'வடகிழக்குப் பருவமழை',s_im1:'முதல் பருவ இடைப்பட்ட காலம்',s_sw:'தென்மேற்குப் பருவமழை',s_im2:'இரண்டாம் பருவ இடைப்பட்ட காலம்'}
+ officialN:'அதிகாரப்பூர்வ அறிவிப்புகள்',seaNotices:'கடல் அறிவிப்புகள்',s_ne:'வடகிழக்குப் பருவமழை',s_im1:'முதல் பருவ இடைப்பட்ட காலம்',s_sw:'தென்மேற்குப் பருவமழை',s_im2:'இரண்டாம் பருவ இடைப்பட்ட காலம்'}
 };
 const LOC={en:'en-GB',si:'si-LK',ta:'ta-LK'};
 
@@ -570,7 +581,7 @@ function render(){
   $('#hStrip').innerHTML=[[t('humidity'),Math.round(c.rh)+'%'],[t('wind'),fW(c.wind)+' '+wLbl[S.u.w]+' '+dirL(c.dir)],[t('rainChance'),d0.pop+'%'],[t('uv'),Math.round(d0.uv)]].map(a=>`<div><small>${a[0]}</small><b class="num">${a[1]}</b></div>`).join('');
   setSky(k,c.day);
   const fav=S.favs.includes(p.id);const b=$('#fav');b.setAttribute('aria-pressed',fav);b.textContent=fav?t('saved'):t('save');
-  renderAlerts();renderHourly();renderDaily();renderTiles();renderAirSea();renderSeason();renderQuick();renderMap();renderTable();
+  renderNotices();renderAlerts();renderHourly();renderDaily();renderTiles();renderAirSea();renderSeason();renderQuick();renderMap();renderTable();
   document.title=`${fT(c.t)} ${lname(p)} · Lanka Weather`;
 }
 function tickClock(){const L=localNow();$('#clock').textContent=((L.getUTCHours()%12)||12)+':'+pad(L.getUTCMinutes())+' '+(L.getUTCHours()>=12?'PM':'AM')}
@@ -791,14 +802,33 @@ $('#hero').addEventListener('dblclick',()=>{const c=S.m.current,p=S.place;const 
   (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>toast(t('copied'))).catch(()=>toast(t('copyFail')))});
 addEventListener('hashchange',()=>{const id=location.hash.slice(1);if(PL[id]&&id!==S.place.id){S.place=PL[id];store.set('lw.place',id);loadPlace()}});
 
+/* ---------- official notices (notices.json, edited by hand or with add-notice.html) ---------- */
+const esc=x=>String(x==null?'':x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+async function loadNotices(){
+  try{const r=await fetch('notices.json?'+Math.floor(Date.now()/300000),{cache:'no-store'});if(!r.ok)throw 0;const j=await r.json();S.notices=Array.isArray(j.notices)?j.notices:[]}
+  catch(e){S.notices=[]}
+  renderNotices();
+}
+function renderNotices(){
+  const box=$('#notices'),p=S.place,today=localNow().toISOString().slice(0,10),prov=p.prov.toLowerCase();
+  const list=(S.notices||[]).filter(n=>n&&n.title&&(!n.expires||n.expires>=today)&&(!n.date||n.date<=today)&&(Array.isArray(n.areas)&&n.areas.length?n.areas:['all']).some(a=>{a=String(a).toLowerCase();return a==='all'||a===p.id||a===prov||(a==='coastal'&&p.coast)}))
+    .sort((a,b)=>({bad:0,warn:1,info:2}[a.severity]??2)-({bad:0,warn:1,info:2}[b.severity]??2)||String(b.date||'').localeCompare(String(a.date||'')));
+  if(!list.length){box.hidden=true;box.innerHTML='';return}
+  const col={bad:'var(--bad)',warn:'var(--warn)',info:'var(--sapphire)'};
+  box.innerHTML=`<div class="notices-h"><h2>${t('officialN')}</h2><span>${t('officialSub')}</span></div><div class="alerts">`+list.map(n=>{
+    const link=/^https?:\/\//i.test(n.link||'')?`<a href="${esc(n.link)}" target="_blank" rel="noopener">${t('readOrig')} ↗</a>`:'';
+    return`<article class="notice" style="--c:${col[n.severity]||col.info}"><div class="src"><b>${esc(n.source||'Notice')}</b>${n.date?`<span>${esc(fDay(n.date,{day:'numeric',month:'short',year:'numeric'}))}</span>`:''}${n.expires?`<span>until ${esc(fDay(n.expires,{day:'numeric',month:'short'}))}</span>`:''}</div><h3>${esc(n.title)}</h3>${n.text?`<p>${esc(n.text)}</p>`:''}${link}</article>`}).join('')+'</div>';
+  box.hidden=false;
+}
+
 /* ---------- boot ---------- */
 if(S.theme)document.documentElement.setAttribute('data-theme',S.theme);
 const h0=location.hash.slice(1);
 S.place=PL[h0]||PL[store.get('lw.place','colombo')]||PL.colombo;
 applyI18n();tickClock();setInterval(tickClock,20000);
 S.island=null;
-loadPlace();loadIsland();
-setInterval(()=>{if(!document.hidden&&!S.demo){loadPlace();loadIsland()}},600000);
+loadPlace();loadIsland();loadNotices();
+setInterval(()=>{if(!document.hidden&&!S.demo){loadPlace();loadIsland()}if(!document.hidden)loadNotices()},600000);
 })();
 </script>
 </body>
