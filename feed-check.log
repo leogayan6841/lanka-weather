@@ -1,3 +1,7 @@
+[cors] https://was.meteo.gov.lk/cap/en/rss.xml -> 200; allow-origin=None; content-type=application/rss+xml; charset=utf-8; cache=public, max-age=300
+[cors] body start: <?xml version="1.0" encoding="UTF-8"?> <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"> <channel> <atom:link rel="self" type="application/rss+xml" href="https://was.meteo.gov.lk/cap/en/rss.xml" /> <title>Weather Advisory CAP Feed</title> <link>https://was.meteo.gov.lk/cap/en/rss.xml</link> <description>Generated CAP alerts feed. Clicking item links loads CAP XML files.</description> <l
+[cors] https://alert-hub-sources.s3.amazonaws.com/json -> 200; allow-origin=*; content-type=application/octet-stream; cache=None
+[cors] body start:  { "sources": [ { "source": { "sourceId": "af-andma-en", "byLanguage": [ { "code": "en", "name": "Afghanistan: National Disaster Management Authority", "logo": "https://alert-hub.s3.amazonaws.com/images/af-andma-en.png" } ], "guid": "urn:oid:2.49.0.0.4.1", "registerUrl": "https://alertingauthority.wmo.int/authorities.php?recId=202", "authorName": "Mohammad Ishaq Noori", "authorEmail": "noorimet@gm
   hub entry: {"sourceid": "lk-meteo-en", "bylanguage": [{"code": "en", "name": "sri lanka: department of meteorology", "logo": "https://alert-hub.s3.amazonaws.com/images/lk-meteo-en.png"}], "guid": "urn:oid:2.49.0.0.144.0", "registerurl": "https://alertingauthority.wmo.int/authorities.php?recid=154", "authorname": "meril mendis", "authoremail": "merilmdi@gmail.com", "sourceisofficial": true, "capalertfeed": "h
   hub entry: {"sourceid": "lk-meteo-si", "bylanguage": [{"code": "si", "name": "sri lanka: කාලගුණ විද්‍යා දෙපාර්තමේන්තුව", "logo": "https://alert-hub.s3.amazonaws.com/images/lk-meteo-si.png"}], "guid": "urn:oid:2.49.0.0.144.0", "registerurl": "https://alertingauthority.wmo.int/authorities.php?recid=154", "authorname": "meril mendis", "authoremail": "merilmdi@gmail.com", "sourceisofficial": true, "capalertfeed"
   hub entry: {"sourceid": "lk-meteo-ta", "bylanguage": [{"code": "ta", "name": "sri lanka: வானிலை ஆய்வு துறை", "logo": "https://alert-hub.s3.amazonaws.com/images/lk-meteo-ta.png"}], "guid": "urn:oid:2.49.0.0.144.0", "registerurl": "https://alertingauthority.wmo.int/authorities.php?recid=154", "authorname": "meril mendis", "authoremail": "merilmdi@gmail.com", "sourceisofficial": true, "capalertfeed": "https://w
@@ -32,4 +36,4 @@
   x https://www.fisheries.gov.lk/?feed=rss2  (not a feed)
   x https://www.fisheries.gov.lk/index.php?format=feed&type=rss  (HTTPError)
   x https://www.fisheries.gov.lk/web/index.php?format=feed&type=rss  (HTTPError)
-Wrote auto-notices.json: 0 notice(s).
+No change.
