@@ -121,6 +121,39 @@ def candidate_feeds(home):
     return out[:25]
 
 
+HUB_DIRECTORY = "https://alert-hub-sources.s3.amazonaws.com/json"
+
+
+def hub_candidates():
+    """Feed addresses for Sri Lanka from the WMO Alert Hub's public source directory."""
+    out = []
+    try:
+        data = json.loads(fetch(HUB_DIRECTORY, timeout=20).decode("utf-8", "ignore"))
+    except Exception as ex:
+        log(f"  WMO Alert Hub directory not readable: {type(ex).__name__}")
+        return out
+
+    def walk(o):
+        if isinstance(o, dict):
+            blob = json.dumps(o, ensure_ascii=False)
+            if len(blob) < 4000 and "sri lanka" in blob.lower():
+                log("  hub entry: " + blob[:1500])
+                for v in o.values():
+                    if isinstance(v, str) and v.startswith("http"):
+                        out.append(v)
+                return
+            for v in o.values():
+                walk(v)
+        elif isinstance(o, list):
+            for v in o:
+                walk(v)
+
+    walk(data)
+    if not out:
+        log("  no Sri Lanka entry found in the hub directory")
+    return out
+
+
 def load_feed(url):
     root = parse_xml(fetch(url))
     if root is None:
@@ -239,7 +272,11 @@ def build_notice(src, e):
 def run_source(src):
     status = {"name": src["name"], "feed": None, "ok": False, "items": 0, "notices": 0}
     pinned = os.environ.get(src["env"], "").strip()
-    cands = [pinned] if pinned else candidate_feeds(src["home"])
+    if pinned:
+        cands = [pinned]
+    else:
+        cands = (hub_candidates() if src["name"] == "Department of Meteorology" else []) + candidate_feeds(src["home"])
+        cands = list(dict.fromkeys(cands))
     log(f"[{src['name']}] trying {len(cands)} candidate feed address(es)")
     notices = []
     started = time.time()
