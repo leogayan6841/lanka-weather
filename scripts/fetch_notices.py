@@ -201,7 +201,7 @@ def find_cap(e):
     for c in e:
         if ln(c.tag) == "link":
             href, typ = c.attrib.get("href", ""), c.attrib.get("type", "")
-            if "cap" in typ or re.search(r"\.(cap|xml)(\?|$)", href, re.I):
+            if "cap" in typ or "/cap" in href.lower() or re.search(r"\.(cap|xml)(\?|$)", href, re.I):
                 try:
                     r = parse_xml(fetch(href))
                     if r is not None and ln(r.tag) == "alert":
@@ -310,22 +310,7 @@ def run_source(src):
     return status, notices
 
 
-def cors_check():
-    """Diagnostic: can a browser on another site read the Met alert feed directly?"""
-    for u in ["https://was.meteo.gov.lk/cap/en/rss.xml", "https://alert-hub-sources.s3.amazonaws.com/json"]:
-        try:
-            req = urllib.request.Request(u, headers={"User-Agent": UA, "Origin": "https://leogayan6841.github.io"})
-            with urllib.request.urlopen(req, timeout=15) as r:
-                h = {k.lower(): v for k, v in r.headers.items()}
-                body = r.read(600).decode("utf-8", "ignore")
-            log(f"[cors] {u} -> {r.status}; allow-origin={h.get('access-control-allow-origin')}; content-type={h.get('content-type')}; cache={h.get('cache-control')}")
-            log("[cors] body start: " + re.sub(r"\s+", " ", body)[:400])
-        except Exception as ex:
-            log(f"[cors] {u} -> {type(ex).__name__}")
-
-
 def main():
-    cors_check()
     statuses, allnotices = [], []
     for s in SOURCES:
         try:
