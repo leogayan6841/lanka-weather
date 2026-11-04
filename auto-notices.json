@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-04T12:26+05:30",
+  "updated": "2026-11-04T20:51+05:30",
   "sources": [
     {
       "name": "Department of Meteorology",
@@ -25,7 +25,7 @@
   ],
   "notices": [
     {
-      "id": "auto-70804e1d82",
+      "id": "auto-70014ca8b2",
       "source": "Department of Meteorology (auto)",
       "severity": "warn",
       "title": "Amber Warning (Be Prepared) - Lightning (Today)",
@@ -35,7 +35,7 @@
       ],
       "date": "2026-11-04",
       "expires": "2026-11-06",
-      "link": "https://was.meteo.gov.lk/cap/en/2ee74284dd2e4591ac2479e5f7f40b54.xml"
+      "link": "https://was.meteo.gov.lk/cap/en/c98dc39844fb4ff5923b57448c1eaec4.xml"
     }
   ]
 }
