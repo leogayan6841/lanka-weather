@@ -18,9 +18,8 @@
   x https://www.navy.lk/?feed=rss2  (not a feed)
   x https://www.navy.lk/index.php?format=feed&type=rss  (not a feed)
   x https://www.navy.lk/web/index.php?format=feed&type=rss  (HTTPError)
-  could not read https://www.fisheries.gov.lk: The read operation timed out
 [Fisheries Department] trying 13 candidate feed address(es)
-  x https://www.fisheries.gov.lk/feed  (TimeoutError)
+  x https://www.fisheries.gov.lk/feed  (HTTPError)
   x https://www.fisheries.gov.lk/feed/  (HTTPError)
   x https://www.fisheries.gov.lk/rss  (HTTPError)
   x https://www.fisheries.gov.lk/rss.xml  (HTTPError)
