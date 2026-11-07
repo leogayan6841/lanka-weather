@@ -1,12 +1,12 @@
 {
-  "updated": "2026-11-07T15:31+05:30",
+  "updated": "2026-11-07T21:52+05:30",
   "sources": [
     {
       "name": "Department of Meteorology",
       "feed": "https://was.meteo.gov.lk/cap/en/rss.xml",
       "ok": true,
-      "items": 1,
-      "notices": 1
+      "items": 2,
+      "notices": 2
     },
     {
       "name": "Sri Lanka Navy",
@@ -24,6 +24,19 @@
     }
   ],
   "notices": [
+    {
+      "id": "auto-5028eb4759",
+      "source": "Department of Meteorology (auto)",
+      "severity": "warn",
+      "title": "Yellow Warning (Be Aware) - Heavy Rain (Today)",
+      "text": "Heavy rainfall above 100 mm are likely in the below mentioned areas. Status: Active. Valid until: 2026-11-08T01:00.",
+      "areas": [
+        "all"
+      ],
+      "date": "2026-11-07",
+      "expires": "2026-11-09",
+      "link": "https://was.meteo.gov.lk/cap/en/0ebb2ff40ccd45fba697f0705ef76248.xml"
+    },
     {
       "id": "auto-8255c0b271",
       "source": "Department of Meteorology (auto)",
