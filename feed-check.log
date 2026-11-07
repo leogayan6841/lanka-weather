@@ -3,7 +3,7 @@
   hub entry: {"sourceid": "lk-meteo-ta", "bylanguage": [{"code": "ta", "name": "sri lanka: வானிலை ஆய்வு துறை", "logo": "https://alert-hub.s3.amazonaws.com/images/lk-meteo-ta.png"}], "guid": "urn:oid:2.49.0.0.144.0", "registerurl": "https://alertingauthority.wmo.int/authorities.php?recid=154", "authorname": "meril mendis", "authoremail": "merilmdi@gmail.com", "sourceisofficial": true, "capalertfeed": "https://w
   could not read https://meteo.gov.lk: <urlopen error [Errno 111] Connection refused>
 [Department of Meteorology] trying 16 candidate feed address(es)
-  ok https://was.meteo.gov.lk/cap/en/rss.xml  (2 items)
+  ok https://was.meteo.gov.lk/cap/en/rss.xml  (0 items)
 [Sri Lanka Navy] trying 13 candidate feed address(es)
   x https://www.navy.lk/feed  (HTTPError)
   x https://www.navy.lk/feed/  (HTTPError)
@@ -33,4 +33,4 @@
   x https://www.fisheries.gov.lk/?feed=rss2  (URLError)
   x https://www.fisheries.gov.lk/index.php?format=feed&type=rss  (URLError)
   x https://www.fisheries.gov.lk/web/index.php?format=feed&type=rss  (URLError)
-Wrote auto-notices.json: 2 notice(s).
+Wrote auto-notices.json: 0 notice(s).
