@@ -1,12 +1,12 @@
 {
-  "updated": "2026-11-12T07:59+05:30",
+  "updated": "2026-11-12T15:44+05:30",
   "sources": [
     {
       "name": "Department of Meteorology",
       "feed": "https://was.meteo.gov.lk/cap/en/rss.xml",
       "ok": true,
-      "items": 0,
-      "notices": 0
+      "items": 1,
+      "notices": 1
     },
     {
       "name": "Sri Lanka Navy",
@@ -23,5 +23,19 @@
       "notices": 0
     }
   ],
-  "notices": []
+  "notices": [
+    {
+      "id": "auto-34269ab77e",
+      "source": "Department of Meteorology (auto)",
+      "severity": "warn",
+      "title": "Amber Warning (Be Prepared) - Thunderstorms (Today)",
+      "text": "For the land areas: There is an increased likelihood of severe lightning associated with thundershowers at several places in the following areas during the evening or night. Heavy falls above 100mm are likely at some places in the Western, Sabaragamuwa, Central, Southern and Uva provinces. For the sea areas: Strong gusty winds of 60–70 kmph and very rough sea conditions can be expected temporarily during thundershowers in the sea areas Status: Active. Valid until: 2026-11-13T01:00.",
+      "areas": [
+        "coastal"
+      ],
+      "date": "2026-11-12",
+      "expires": "2026-11-14",
+      "link": "https://was.meteo.gov.lk/cap/en/29228fa00f644499a4ccc4969a893b26.xml"
+    }
+  ]
 }
