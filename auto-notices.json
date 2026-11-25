@@ -1,12 +1,12 @@
 {
-  "updated": "2026-11-25T15:55+05:30",
+  "updated": "2026-11-26T01:38+05:30",
   "sources": [
     {
       "name": "Department of Meteorology",
-      "feed": "https://was.meteo.gov.lk/cap/ta/rss.xml",
+      "feed": "https://was.meteo.gov.lk/cap/en/rss.xml",
       "ok": true,
-      "items": 2,
-      "notices": 2
+      "items": 1,
+      "notices": 1
     },
     {
       "name": "Sri Lanka Navy",
@@ -25,7 +25,7 @@
   ],
   "notices": [
     {
-      "id": "auto-066e2e76c9",
+      "id": "auto-8692f5d25d",
       "source": "Department of Meteorology (auto)",
       "severity": "warn",
       "title": "Amber Warning (Be Prepared) - Heavy Rain (Today)",
@@ -37,20 +37,7 @@
       ],
       "date": "2026-11-25",
       "expires": "2026-11-27",
-      "link": "https://was.meteo.gov.lk/cap/ta/4547e515d221484c98f51f9003cc1c67.xml"
-    },
-    {
-      "id": "auto-0198760d47",
-      "source": "Department of Meteorology (auto)",
-      "severity": "warn",
-      "title": "Amber Warning (Be Prepared) - Lightning (Today)",
-      "text": "There is a possibility of Showers or thundershowers occurring in the following areas during the evening or night. Status: Active. Valid until: 2026-11-25T23:30.",
-      "areas": [
-        "all"
-      ],
-      "date": "2026-11-25",
-      "expires": "2026-11-27",
-      "link": "https://was.meteo.gov.lk/cap/ta/422a96c0e15c495ebd9f530fba7958f3.xml"
+      "link": "https://was.meteo.gov.lk/cap/en/4547e515d221484c98f51f9003cc1c67.xml"
     }
   ]
 }
